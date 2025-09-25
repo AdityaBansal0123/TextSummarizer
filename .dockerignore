@@ -1,20 +1,26 @@
-# Virtual environments
-venv/
-.env
-
 # Python cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# Git / OS files
-.git/
-.DS_Store
+# Virtual environments
+.venv/
+env/
+venv/
 
-# Data and models (keep these outside image)
-data/
-.cache/
-.huggingface/
-models/
-checkpoints/
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+
+# OS
+*.DS_Store
+*.log
+
+# IDE
+.vscode/
+.idea/

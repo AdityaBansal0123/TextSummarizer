@@ -1,27 +1,27 @@
-# Use a slim Python base image
+# Use official Python image
 FROM python:3.11-slim
 
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies only if required (build-essential is heavy, so skip unless needed)
+# Install system dependencies (optional, for some Python packages)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc \
+    build-essential \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy only requirements first
+# Copy requirements first (for caching)
 COPY requirements.txt .
 
-# Install Python dependencies (no cache, no extra bloat)
-RUN pip install --no-cache-dir --upgrade pip \
+# Upgrade pip & install dependencies
+RUN pip install --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
 
-# Copy only application source code (not venv, not data, not models)
-COPY app.py .
-COPY src/ ./src
+# Copy project files
+COPY . .
 
 # Expose FastAPI default port
 EXPOSE 8000
 
-# Run FastAPI with Uvicorn
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run the app with uvicorn
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
