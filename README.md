@@ -1,4 +1,4 @@
-TextSummarizer USing Huggingface
+TextSummarizer Using Huggingface
 Workflows
 1.	Config.yaml
 2.	Params.yaml
